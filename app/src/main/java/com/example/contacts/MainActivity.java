@@ -44,6 +44,31 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddCont
         appBarLayout=findViewById(R.id.appbar_layout);
 
 
+
+        editText_search.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length()>0){
+                    List<Contact>contacts=sqLiteHelper.searchContact(s.toString());
+                    adapter.searchContact(contacts);
+                }else {
+                    List<Contact>contacts=sqLiteHelper.getContact();
+                    adapter.searchContact(contacts);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         adapter = new ContactsAdapter(this);
         recyclerView.setAdapter(adapter);

@@ -87,5 +87,25 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public List<Contact> searchContact(String query){
+        SQLiteDatabase sqLiteDatabase=getReadableDatabase();
+        Cursor cursor=sqLiteDatabase.rawQuery("SELECT* FROM "+name_tb+" WHERE fullname LIKE '%"+query+"%'",null);
+
+        List<Contact>contacts=new ArrayList<Contact>();
+
+        if(cursor.moveToFirst()){
+            do {
+                Contact contact=new Contact();
+                contact.setId(cursor.getLong(0));
+                contact.setFullname(cursor.getString(1));
+                contact.setPhonenumber(cursor.getString(2));
+                contact.setEmail(cursor.getString(3));
+
+                contacts.add(contact);
+            }while (cursor.moveToNext());
+        }
+        return contacts;
+    }
+
 }
 
