@@ -16,7 +16,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/btn_back"
+        android:id="@+id/back"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:paddingLeft="10dp"
@@ -75,15 +75,15 @@
 
             <TextView
                 android:id="@+id/name_contact"
-                android:layout_width="67dp"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="158dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="155dp"
+                android:layout_marginStart="65dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="53dp"
                 android:layout_marginBottom="288dp"
                 android:gravity="center"
                 android:text="user"
