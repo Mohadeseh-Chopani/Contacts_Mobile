@@ -14,7 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.contacts.Adapter.ContactsAdapter;
-import com.example.contacts.SQLite.SQLiteHelper;
+import com.example.contacts.Database.DataDao;
+import com.example.contacts.Database.HoldDatabase;
 import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.List;
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddCont
     EditText name_et,phonenumber_et,email_et,editText_search;
     AppBarLayout appBarLayout;
     ContactsAdapter adapter;
-    SQLiteHelper sqLiteHelper;
+    DataDao database;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddCont
         appBarLayout=findViewById(R.id.appbar_layout);
 
 
+        database= HoldDatabase.getdata(this).getDao();
 
         editText_search.addTextChangedListener(new TextWatcher() {
 
@@ -55,10 +58,10 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddCont
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length()>0){
-                    List<Contact>contacts=sqLiteHelper.searchContact(s.toString());
+                    List<Contact>contacts=database.searchContact(s.toString());
                     adapter.searchContact(contacts);
                 }else {
-                    List<Contact>contacts=sqLiteHelper.getContact();
+                    List<Contact>contacts=database.getContact();
                     adapter.searchContact(contacts);
                 }
             }
@@ -73,16 +76,18 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddCont
         adapter = new ContactsAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        sqLiteHelper=new SQLiteHelper(this);
-        List<Contact> contactList=sqLiteHelper.getContact();
-        adapter.add_contacts(contactList);
+
+        List<Contact> contacts =database.getContact();
+        adapter.add_contacts(contacts);
 
         // when we click on add button then show dialog add contact
         AddDialog dialog_add=new AddDialog();
         View addActionButton=findViewById(R.id.add_action_button);
+
         addActionButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
                 dialog_add.show(getSupportFragmentManager(),null);
             }
         });
@@ -91,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddCont
 
     @Override
     public void Onnewcontact(Contact contact) {
-        long contactId= sqLiteHelper.addContact(contact);
+        long contactId=database.addContact(contact);
         if(contactId!=0){
             contact.setId(contactId);
             adapter.addContact(contact);
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddCont
 
     @Override
     public void OnClickDelete(Contact contact) {
-        int result = sqLiteHelper.deleteContact(contact);
+        int result =database.deleteContact(contact);
         if (result > 0) {
             adapter.deleteContact(contact);
         }
@@ -134,9 +139,10 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddCont
 
     @Override
     public void Oneditcontact(Contact contact) {
-        int result = sqLiteHelper.updateContact(contact);
+        int result =database.updateContact(contact);
         if(result > 0) {
             adapter.updateContact(contact);
         }
     }
+
 }
