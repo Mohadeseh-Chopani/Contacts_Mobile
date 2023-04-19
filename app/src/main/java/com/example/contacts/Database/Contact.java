@@ -1,4 +1,4 @@
-package com.example.contacts;
+package com.example.contacts.Database;
 
 import android.os.Parcel;
 import android.os.Parcelable;

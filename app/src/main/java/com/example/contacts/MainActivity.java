@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.contacts.Adapter.ContactsAdapter;
+import com.example.contacts.Database.Contact;
 import com.example.contacts.Database.DataDao;
 import com.example.contacts.Database.HoldDatabase;
 import com.google.android.material.appbar.AppBarLayout;
@@ -23,8 +24,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AddDialog.AddContactInterface, ContactsAdapter.ContactClickListener, EditDialog.EditContactInterface {
 
     RecyclerView recyclerView;
-    ImageView btn_close_page_add,btn_add_page_add,img_profile_page_add;
-    EditText name_et,phonenumber_et,email_et,editText_search;
+    ImageView btn_add_page_add,img_profile_page_add;
+    EditText editText_search;
     AppBarLayout appBarLayout;
     ContactsAdapter adapter;
     DataDao database;
@@ -36,13 +37,9 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddCont
         setContentView(R.layout.activity_main);
 
         editText_search=findViewById(R.id.edit_search);
-        btn_close_page_add=findViewById(R.id.btn_close);
         btn_add_page_add=findViewById(R.id.btn_add);
         img_profile_page_add=findViewById(R.id.img_profile);
         recyclerView=findViewById(R.id.recyclerview);
-        name_et=findViewById(R.id.edittext_name);
-        phonenumber_et=findViewById(R.id.edittext_number);
-        email_et=findViewById(R.id.edittext_email);
         appBarLayout=findViewById(R.id.appbar_layout);
 
 
@@ -138,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements AddDialog.AddCont
     }
 
     @Override
-    public void Oneditcontact(Contact contact) {
+    public void OnEditcontact(Contact contact) {
         int result =database.updateContact(contact);
         if(result > 0) {
             adapter.updateContact(contact);

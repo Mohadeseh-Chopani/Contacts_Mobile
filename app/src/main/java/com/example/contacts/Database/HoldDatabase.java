@@ -10,8 +10,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-import com.example.contacts.Contact;
-
 @Database(version = 1,exportSchema = true,entities = {Contact.class})
 public abstract class HoldDatabase extends RoomDatabase {
 

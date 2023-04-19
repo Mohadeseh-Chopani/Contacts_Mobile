@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.contacts.Adapter.ContactsAdapter;
+import com.example.contacts.Database.Contact;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -77,7 +78,6 @@ public class AddDialog extends DialogFragment {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!ContactsAdapter.status){
                     if(editText_name.length()>0 && editText_number.length()>0){
                         Contact contact=new Contact();
                         contact.setFullname(Objects.requireNonNull(editText_name.getText()).toString());
@@ -91,21 +91,6 @@ public class AddDialog extends DialogFragment {
                         if (editText_number.length()==0)
                             layout_number_et.setError("number is empty");
                     }
-                }else {
-                    if(editText_name.length()>0 && editText_number.length()>0){
-                        Contact contact=new Contact();
-                        contact.setFullname(Objects.requireNonNull(editText_name.getText()).toString());
-                        contact.setPhonenumber(Objects.requireNonNull(editText_number.getText()).toString());
-                        contact.setEmail(Objects.requireNonNull(editText_email.getText()).toString());
-                        contactClickListener.OnClickEdit(contact);
-                        dismiss();
-                    }else {
-                        if(editText_name.length()==0)
-                            layout_name_et.setError("name is empty!");
-                        if (editText_number.length()==0)
-                            layout_number_et.setError("number is empty");
-                    }
-                }
             }
         });
 

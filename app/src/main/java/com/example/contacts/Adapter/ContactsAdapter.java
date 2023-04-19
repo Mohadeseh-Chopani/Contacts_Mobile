@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.contacts.Contact;
+import com.example.contacts.Database.Contact;
 import com.example.contacts.R;
 
 import java.util.ArrayList;
@@ -79,6 +79,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
     public int getItemCount() {
         return contactList.size();
     }
+
+
      public class ContactsViewHolder extends RecyclerView.ViewHolder {
 
         TextView profile_name_rv;
@@ -92,9 +94,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
             full_name_rv = itemView.findViewById(R.id.full_name_rv);
             btn_delete=itemView.findViewById(R.id.btn_delete);
             btn_edit=itemView.findViewById(R.id.btn_edit);
-
-
-
 
         }
 

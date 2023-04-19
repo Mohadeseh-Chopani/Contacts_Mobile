@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.contacts.Database.Contact;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -93,7 +94,7 @@ public class EditDialog extends DialogFragment {
                         contact.setFullname(Objects.requireNonNull(editText_name.getText()).toString());
                         contact.setPhonenumber(Objects.requireNonNull(editText_number.getText()).toString());
                         contact.setEmail(Objects.requireNonNull(editText_email.getText()).toString());
-                        editContactInterface.Oneditcontact(contact);
+                        editContactInterface.OnEditcontact(contact);
                         dismiss();
                     }else {
                         if(editText_name.length()==0)
@@ -108,6 +109,6 @@ public class EditDialog extends DialogFragment {
     }
 
     public interface EditContactInterface{
-        void Oneditcontact(Contact contact);
+        void OnEditcontact(Contact contact);
     }
 }
